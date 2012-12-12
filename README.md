@@ -45,7 +45,9 @@ q.types(/Customer/)
 
 Print the xml template for a specific type
 
-    puts q.describe('CustomerModRq')
+```ruby
+puts q.describe('CustomerModRq')
+```
 
 ### QBXML To Ruby
 
