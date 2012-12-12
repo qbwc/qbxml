@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="2.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError">
+    <CustomerAddRq requestID="15">
+      <CustomerAdd>
+        <Name>20706 - Eastern XYZ University</Name>
+        <CompanyName>Eastern XYZ University</CompanyName>
+        <FirstName>Keith</FirstName>
+        <LastName>Palmer</LastName>
+        <BillAddress>
+          <Addr1>Eastern XYZ University</Addr1>
+          <Addr2>College of Engineering</Addr2>
+          <Addr3>123 XYZ Road</Addr3>
+          <City>Storrs-Mansfield</City>
+          <State>CT</State>
+          <PostalCode>06268</PostalCode>
+          <Country>United States</Country>
+        </BillAddress>
+        <Phone>860-634-1602</Phone>
+        <AltPhone>860-429-0021</AltPhone>
+        <Fax>860-429-5183</Fax>
+        <Email>keith@consolibyte.com</Email>
+        <Contact>Keith Palmer</Contact>
+      </CustomerAdd>
+    </CustomerAddRq>
+  </QBXMLMsgsRq>
+</QBXML>

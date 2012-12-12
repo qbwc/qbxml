@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="8.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError">
+    <ReceivePaymentQueryRq requestID="UmVjZWl2ZVBheW1lbnRRdWVyeXwyNDg0LTEyNjM0OTkyMzE=">
+      <TxnID>2484-1263499231</TxnID>
+    </ReceivePaymentQueryRq>
+  </QBXMLMsgsRq>
+</QBXML>

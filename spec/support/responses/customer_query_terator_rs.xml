@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<QBXML>
+  <QBXMLMsgsRs>
+    <CustomerQueryRs 
+     requestID="1" 
+     statusCode="0" 
+     statusSeverity="Info" 
+     statusMessage="Status OK" 
+     iteratorRemainingCount="18"
+     iteratorID="{eb05f701-e727-472f-8ade-6753c4f67a46}">
+      <CustomerRet>
+        <ListID>110000-1232697602</ListID>
+        <TimeCreated>2009-01-23T03:00:02-05:00</TimeCreated>
+        <TimeModified>2009-01-23T03:00:02-05:00</TimeModified>
+        <EditSequence>1232697602</EditSequence>
+        <Name>10th Customer</Name>
+        <FullName>10th Customer</FullName>
+        <IsActive>true</IsActive>
+        <Sublevel>0</Sublevel>
+        <Balance>0.00</Balance>
+        <TotalBalance>0.00</TotalBalance>
+        <SalesTaxCodeRef>
+          <ListID>10000-1232327562</ListID>
+          <FullName>Tax</FullName>
+        </SalesTaxCodeRef>
+        <ItemSalesTaxRef>
+          <ListID>10000-1232327661</ListID>
+          <FullName>Out of State</FullName>
+        </ItemSalesTaxRef>
+        <JobStatus>None</JobStatus>
+      </CustomerRet>
+    </CustomerQueryRs>
+  </QBXMLMsgsRs>
+</QBXML>

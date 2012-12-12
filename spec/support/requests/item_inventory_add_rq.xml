@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="7.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError">
+    <ItemInventoryAddRq requestID="SXRlbUludmVudG9yeUFkZHwxNTA=" >
+      <ItemInventoryAdd>
+        <Name>product name here</Name>
+        <SalesDesc>your sales description here</SalesDesc>
+        <SalesPrice>85.00</SalesPrice>
+        <IncomeAccountRef>
+          <FullName>Sales</FullName>
+        </IncomeAccountRef>
+        <COGSAccountRef>
+          <FullName>Cost of Goods Sold</FullName>
+        </COGSAccountRef>
+        <AssetAccountRef>
+          <FullName>Inventory Asset</FullName>
+        </AssetAccountRef>
+      </ItemInventoryAdd>
+    </ItemInventoryAddRq>
+  </QBXMLMsgsRq>
+</QBXML>

@@ -43,7 +43,7 @@ class Qbxml
     validate_qbxml_hash(hash) if opts[:validate]
 
     opts[:root] = hash.keys.first
-    opts[:attributes] = hash.delete(:xml_attributes)
+    opts[:attributes] = hash.delete('xml_attributes')
     opts[:directive] = DIRECTIVE_TAGS[@schema]
     hash = hash.values.first
 
@@ -92,7 +92,7 @@ class Qbxml
 
   def validate_qbxml_hash(hash, path = [])
     hash.each do |k,v|
-      next if k == :xml_attributes
+      next if k == 'xml_attributes'
       key_path = path.dup << k
       if v.is_a?(Hash)
         validate_qbxml_hash(v, key_path)

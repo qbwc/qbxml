@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<QBXML>
+  <QBXMLMsgsRs>
+    <CustomerAddRs requestID="15" statusCode="0" statusSeverity="Info" statusMessage="Status OK">
+      <CustomerRet>
+        <ListID>F540000-1197683154</ListID>
+        <TimeCreated>2007-12-14T20:45:54-05:00</TimeCreated>
+        <TimeModified>2007-12-14T20:45:54-05:00</TimeModified>
+        <EditSequence>1197683154</EditSequence>
+        <Name>20706 - Eastern XYZ University</Name>
+        <FullName>20706 - Eastern XYZ University</FullName>
+        <IsActive>true</IsActive>
+        <Sublevel>0</Sublevel>
+        <CompanyName>Eastern XYZ University</CompanyName>
+        <FirstName>Keith</FirstName>
+        <LastName>Palmer</LastName>
+        <BillAddress>
+          <Addr1>Eastern XYZ University</Addr1>
+          <Addr2>College of Engineering</Addr2>
+          <Addr3>123 XYZ Road</Addr3>
+          <City>Storrs-Mansfield</City>
+          <State>CT</State>
+          <PostalCode>88130</PostalCode>
+          <Country>USA</Country>
+        </BillAddress>
+        <Phone>860-634-1602</Phone>
+        <AltPhone>860-429-0021</AltPhone>
+        <Fax>860-429-5183</Fax>
+        <Email>keith@consolibyte.com</Email>
+        <Contact>Keith Palmer</Contact>
+        <Balance>0.00</Balance>
+        <TotalBalance>0.00</TotalBalance>
+        <JobStatus>None</JobStatus>
+      </CustomerRet>
+    </CustomerAddRs>
+  </QBXMLMsgsRs>
+</QBXML>

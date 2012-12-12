@@ -11,3 +11,15 @@ RSpec.configure do |config|
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
 end
+
+SUPPORT_DIR  = "#{File.dirname(__FILE__)}/support"
+REQUEST_DIR  = "#{SUPPORT_DIR}/requests"
+RESPONSE_DIR = "#{SUPPORT_DIR}/responses"
+
+def requests
+  Dir["#{REQUEST_DIR}/*.xml"].map { |f| File.read(f) }
+end
+
+def responses
+  Dir["#{RESPONSE_DIR}/*.xml"].map { |f| File.read(f) }
+end

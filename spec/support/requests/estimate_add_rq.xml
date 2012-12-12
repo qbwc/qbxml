@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="6.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError">
+    <EstimateAddRq requestID="2">
+      <EstimateAdd>
+        
+        <CustomerRef>
+          <FullName>Keith's Company</FullName>
+        </CustomerRef>
+        
+        <TxnDate>2007-12-14</TxnDate>
+        <RefNumber>9668</RefNumber>
+        
+        <BillAddress>
+          <Addr1>56 Cowles Road</Addr1>
+          <City>Willington</City>
+          <State>CT</State>
+          <PostalCode>06279</PostalCode>
+          <Country>United States</Country>
+        </BillAddress>
+        
+        <EstimateLineAdd>
+          <ItemRef>
+            <FullName>Item Name 1</FullName>
+          </ItemRef>
+          <Desc>Item 1 Description Goes Here</Desc>
+          <Quantity>1</Quantity>
+          <Rate>295</Rate>
+        </EstimateLineAdd>
+
+        <EstimateLineAdd>
+          <ItemRef>
+            <FullName>Item Name 2</FullName>
+          </ItemRef>
+          <Desc>Item 2 Description Goes Here</Desc>
+          <Quantity>3</Quantity>
+          <Rate>25</Rate>
+        </EstimateLineAdd>
+      
+      </EstimateAdd>
+    </EstimateAddRq>
+  </QBXMLMsgsRq>
+</QBXML>
+

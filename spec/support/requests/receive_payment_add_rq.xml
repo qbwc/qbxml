@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="2.1"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError">
+    <ReceivePaymentAddRq>
+      <ReceivePaymentAdd>
+        <CustomerRef>
+          <ListID>F230000-1196864585</ListID>
+          <!--<FullName>Keith Palmer</FullName>--> <!-- You can specify either ListID or FullName -->
+        </CustomerRef>
+        <!--<ARAccountRef>
+          <ListID></ListID>
+          <FullName></FullName>
+        </ARAccountRef>-->
+        <TxnDate>2007-12-14</TxnDate>
+        <RefNumber>00612361</RefNumber>
+        <TotalAmount>195.00</TotalAmount>
+        <PaymentMethodRef>
+          <FullName>Check</FullName>
+        </PaymentMethodRef>
+        <Memo>Inv. #9460</Memo>
+        <!--<DepositToAccountRef>
+          <ListID></ListID>
+          <FullName></FullName>
+        </DepositToAccountRef>-->
+        <AppliedToTxnAdd>
+          <TxnID>12006-1196864828</TxnID>
+          <PaymentAmount>195.00</PaymentAmount>
+        </AppliedToTxnAdd>
+        <!-- If you don't want to apply payments manually to a particular transaction, use <IsAutoApply>true</IsAutoApply> -->
+        <!--   instead of the <AppliedToTxn> node. QuickBooks will make it's best guess how to apply the payment. -->
+      </ReceivePaymentAdd>
+    </ReceivePaymentAddRq>
+  </QBXMLMsgsRq>
+</QBXML>

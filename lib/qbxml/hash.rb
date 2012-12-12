@@ -29,7 +29,7 @@ private
     opts[:indent]          ||= 2
     opts[:root]            ||= :hash
     opts[:directive]       ||= [:xml, {}]
-    opts[:attributes]      ||= self.delete(:xml_attributes) || {} 
+    opts[:attributes]      ||= self.delete('xml_attributes') || {} 
     opts[:builder]         ||= Builder::XmlMarkup.new(indent: opts[:indent])
     opts[:skip_types]      = true unless opts.key?(:skip_types) 
     builder = opts[:builder]
@@ -77,16 +77,17 @@ private
       end
     end
 
+    # Handle attributes
+    node_hash['xml_attributes'] = {}
+    node.attribute_nodes.each { |a| node_hash['xml_attributes'][a.node_name] = a.value }
+
     # Remove content node if it is blank and there are child tags
-    if node_hash.length > 1 && node_hash[CONTENT_ROOT].blank?
+    if node_hash.length > 1 && node_hash[CONTENT_ROOT].strip.blank?
       node_hash.delete(CONTENT_ROOT)
-    elsif node_hash.length == 1 && node_hash.include?(CONTENT_ROOT)
+    elsif node_hash.length == 2 && node_hash.include?(CONTENT_ROOT) && node_hash['xml_attributes'].empty?
       hash[name] = node_hash[CONTENT_ROOT]
     end
 
-    # Handle attributes
-    node_hash[:xml_attributes] = {} unless node.attribute_nodes.empty?
-    node.attribute_nodes.each { |a| node_hash[:xml_attributes][a.node_name] = a.value }
 
     hash
   end
@@ -94,7 +95,7 @@ private
 private
 
   def self.deep_convert(hash, opts = {}, &block)
-    ignored_keys = opts[:ignore] || [:xml_attributes]
+    ignored_keys = opts[:ignore] || ['xml_attributes']
     hash.inject(self.new) do |h, (k,v)|
      ignored_key = ignored_keys.include?(k) 
       h[(block_given? && !ignored_key) ? yield(k.to_s) : k] = \

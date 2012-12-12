@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="5.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError">
+    <CustomerQueryRq requestID="Q3VzdG9tZXJRdWVyeXwyODk2">
+      <FullName>Keith Palmer</FullName>
+    </CustomerQueryRq>
+  </QBXMLMsgsRq>
+</QBXML>

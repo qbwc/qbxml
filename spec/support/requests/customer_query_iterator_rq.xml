@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="5.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="continueOnError">
+    <CustomerQueryRq requestID="1" iterator="Start">
+      <MaxReturned>5</MaxReturned>
+      <FromModifiedDate>1984-01-29T22:03:19</FromModifiedDate>
+      <OwnerID>0</OwnerID>
+    </CustomerQueryRq>
+  </QBXMLMsgsRq>
+</QBXML>

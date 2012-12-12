@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="7.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError">
+    <SalesReceiptAddRq requestID="U2FsZXNSZWNlaXB0QWRkfDE2NDY2" >
+      <SalesReceiptAdd>
+        <CustomerRef>
+          <ListID>80003579-1231522938</ListID>
+        </CustomerRef>
+        <TxnDate>2009-01-09</TxnDate>
+        <RefNumber>16466</RefNumber>
+        <BillAddress>
+          <Addr1>Tom Test</Addr1>
+          <Addr3>123 Test St</Addr3>
+          <City>Concord</City>
+          <State>Massachusetts</State>
+          <PostalCode>01742</PostalCode>
+          <Country>United States</Country>
+        </BillAddress>
+        <ShipAddress>
+        </ShipAddress>
+        <IsPending>true</IsPending>
+        <IsToBePrinted>true</IsToBePrinted>
+        <IsToBeEmailed>false</IsToBeEmailed>
+        <SalesReceiptLineAdd>
+          <ItemRef>
+            <ListID>200001-1143815300</ListID>
+          </ItemRef>
+          <Desc>$150.00 gift certificate</Desc>
+          <Quantity>1</Quantity>
+          <Rate>150.00</Rate>
+          <SalesTaxCodeRef>
+            <FullName>NON</FullName>
+          </SalesTaxCodeRef>
+        </SalesReceiptLineAdd>
+        <SalesReceiptLineAdd>
+          <ItemRef>
+            <ListID>80000857-1231503074</ListID>
+          </ItemRef>
+          <Desc>Handling Charge</Desc>
+          <Amount>0.00</Amount>
+          <SalesTaxCodeRef>
+            <FullName>NON</FullName>
+          </SalesTaxCodeRef>
+        </SalesReceiptLineAdd>
+      </SalesReceiptAdd>
+    </SalesReceiptAddRq>
+  </QBXMLMsgsRq>
+</QBXML>

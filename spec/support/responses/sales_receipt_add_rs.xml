@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<QBXML>
+  <QBXMLMsgsRs>
+    <SalesReceiptAddRs requestID="U2FsZXNSZWNlaXB0QWRkfDE2NDY2" statusCode="0" statusSeverity="Info" statusMessage="Status OK">
+      <SalesReceiptRet>
+        <TxnID>141CA5-1231522949</TxnID>
+        <TimeCreated>2009-01-09T12:42:29-05:00</TimeCreated>
+        <TimeModified>2009-01-09T12:42:29-05:00</TimeModified>
+        <EditSequence>1231522949</EditSequence>
+        <TxnNumber>64951</TxnNumber>
+        <CustomerRef>
+          <ListID>80003579-1231522938</ListID>
+          <FullName>Test, Tom</FullName>
+        </CustomerRef>
+        <TemplateRef>
+          <ListID>E0000-1129903256</ListID>
+          <FullName>Custom Sales Receipt</FullName>
+        </TemplateRef>
+        <TxnDate>2009-01-09</TxnDate>
+        <RefNumber>16466</RefNumber>
+        <BillAddress>
+          <Addr1>Tom Test</Addr1>
+          <Addr2>123 Test St</Addr2>
+          <City>Concord</City>
+          <State>MA</State>
+          <PostalCode>01742</PostalCode>
+          <Country>USA</Country>
+        </BillAddress>
+        <BillAddressBlock>
+          <Addr1>Tom Test</Addr1>
+          <Addr3>123 Test St</Addr3>
+          <Addr4>Concord, Massachusetts 01742</Addr4>
+          <Addr5>United States</Addr5>
+        </BillAddressBlock>
+        <IsPending>true</IsPending>
+        <DueDate>2009-01-09</DueDate>
+        <ShipDate>2009-01-09</ShipDate>
+        <Subtotal>150.00</Subtotal>
+        <ItemSalesTaxRef>
+          <ListID>20C0000-1129494968</ListID>
+          <FullName>MA State Tax</FullName>
+        </ItemSalesTaxRef>
+        <SalesTaxPercentage>5.00</SalesTaxPercentage>
+        <SalesTaxTotal>0.00</SalesTaxTotal>
+        <TotalAmount>150.00</TotalAmount>
+        <IsToBePrinted>true</IsToBePrinted>
+        <IsToBeEmailed>false</IsToBeEmailed>
+        <CustomerSalesTaxCodeRef>
+          <ListID>10000-1128983215</ListID>
+          <FullName>Tax</FullName>
+        </CustomerSalesTaxCodeRef>
+        <DepositToAccountRef>
+          <ListID>960000-1129903123</ListID>
+          <FullName>*Undeposited Funds</FullName>
+        </DepositToAccountRef>
+        <SalesReceiptLineRet>
+          <TxnLineID>141CA7-1231522949</TxnLineID>
+          <ItemRef>
+            <ListID>200001-1143815300</ListID>
+            <FullName>gift certificate</FullName>
+          </ItemRef>
+          <Desc>$150.00 gift certificate</Desc>
+          <Quantity>1</Quantity>
+          <Rate>150.00</Rate>
+          <Amount>150.00</Amount>
+          <SalesTaxCodeRef>
+            <ListID>20000-1128983215</ListID>
+            <FullName>Non</FullName>
+          </SalesTaxCodeRef>
+        </SalesReceiptLineRet>
+        <SalesReceiptLineRet>
+          <TxnLineID>141CA9-1231522949</TxnLineID>
+          <ItemRef>
+            <ListID>80000857-1231503074</ListID>
+            <FullName>Handling Item - QuickBooks Inte</FullName>
+          </ItemRef>
+          <Desc>Handling Charge</Desc>
+          <Rate>0.00</Rate>
+          <Amount>0.00</Amount>
+          <SalesTaxCodeRef>
+            <ListID>20000-1128983215</ListID>
+            <FullName>Non</FullName>
+          </SalesTaxCodeRef>
+        </SalesReceiptLineRet>
+      </SalesReceiptRet>
+    </SalesReceiptAddRs>
+  </QBXMLMsgsRs>
+</QBXML>
+

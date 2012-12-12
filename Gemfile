@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
-
-# Specify your gem's dependencies in qbxml.gemspec
 gemspec
+
+# test
 gem 'pry'
 gem 'rspec'
 gem 'simplecov', require: false, group: :test
+
+# backwards compatibility tests
+gem 'quickbooks_api'

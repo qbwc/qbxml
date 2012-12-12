@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<QBXML>
+  <QBXMLMsgsRs>
+    <ItemInventoryAddRs requestID="SXRlbUludmVudG9yeUFkZHwxNTA=" statusCode="0" statusSeverity="Info" statusMessage="Status OK">
+      <ItemInventoryRet>
+        <ListID>8000085A-1231522945</ListID>
+        <TimeCreated>2009-01-09T12:42:25-05:00</TimeCreated>
+        <TimeModified>2009-01-09T12:42:25-05:00</TimeModified>
+        <EditSequence>1231522945</EditSequence>
+        <Name>product name here</Name>
+        <FullName>product name here</FullName>
+        <IsActive>true</IsActive>
+        <Sublevel>0</Sublevel>
+        <SalesTaxCodeRef>
+          <ListID>10000-1128983215</ListID>
+          <FullName>Tax</FullName>
+        </SalesTaxCodeRef>
+        <SalesDesc>your sales description here</SalesDesc>
+        <SalesPrice>85.00</SalesPrice>
+        <IncomeAccountRef>
+          <ListID>420000-1128987409</ListID>
+          <FullName>Sales</FullName>
+        </IncomeAccountRef>
+        <PurchaseCost>0.00</PurchaseCost>
+        <COGSAccountRef>
+          <ListID>50001-1129079237</ListID>
+          <FullName>Cost of Goods Sold</FullName>
+        </COGSAccountRef>
+        <AssetAccountRef>
+          <ListID>A20000-1155155306</ListID>
+          <FullName>Inventory Asset</FullName>
+        </AssetAccountRef>
+        <QuantityOnHand>0</QuantityOnHand>
+        <AverageCost>0.00</AverageCost>
+        <QuantityOnOrder>0</QuantityOnOrder>
+        <QuantityOnSalesOrder>0</QuantityOnSalesOrder>
+      </ItemInventoryRet>
+    </ItemInventoryAddRs>
+  </QBXMLMsgsRs>
+</QBXML>

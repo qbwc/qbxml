@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<QBXML>
+  <QBXMLMsgsRs>
+    <PurchaseOrderQueryRs requestID="UHVyY2hhc2VPcmRlckltcG9ydHwx" statusCode="0" statusSeverity="Info" statusMessage="Status OK" iteratorRemainingCount="0" iteratorID="{ee76b904-7ef8-4b83-9841-63d4715a273b}">
+      <PurchaseOrderRet>
+        
+        <TxnID>30-1285640333</TxnID>
+        <TimeCreated>2010-09-27T22:18:53-05:00</TimeCreated>
+        <TimeModified>2010-09-27T22:19:52-05:00</TimeModified>
+        <EditSequence>1285640392</EditSequence>
+        <TxnNumber>10</TxnNumber>
+        
+        <VendorRef>
+          <ListID>80000006-1282647976</ListID>
+          <FullName>Test Vendor 1</FullName>
+        </VendorRef>
+        
+        <TemplateRef>
+          <ListID>8000000D-1285640314</ListID>
+          <FullName>Custom Purchase Order</FullName>
+        </TemplateRef>
+        
+        <TxnDate>2010-09-27</TxnDate>
+        <RefNumber>1</RefNumber>
+        
+        <ShipAddress>
+          <Addr1>SQL Mirror Test Company, LLC</Addr1>
+        </ShipAddress>
+        <ShipAddressBlock>
+          <Addr1>SQL Mirror Test Company, LLC</Addr1>
+        </ShipAddressBlock>
+        
+        <TermsRef>
+          <ListID>80000003-1280748245</ListID>
+          <FullName>Consignment</FullName>
+        </TermsRef>
+        
+        <DueDate>2010-12-26</DueDate>
+        <ExpectedDate>2010-09-27</ExpectedDate>
+        <TotalAmount>125.00</TotalAmount>
+        <IsManuallyClosed>false</IsManuallyClosed>
+        <IsFullyReceived>false</IsFullyReceived>
+        <IsToBePrinted>true</IsToBePrinted>
+        <IsToBeEmailed>false</IsToBeEmailed>
+        
+        <PurchaseOrderLineRet>
+          <TxnLineID>32-1285640333</TxnLineID>
+            <ItemRef>
+            <ListID>8000000A-1283374286</ListID>
+          <FullName>test inventory part</FullName>
+          </ItemRef>
+          <Desc>test</Desc>
+          <Quantity>5</Quantity>
+          <Rate>25.00</Rate>
+          <Amount>125.00</Amount>
+          <ReceivedQuantity>0</ReceivedQuantity>
+          <IsManuallyClosed>false</IsManuallyClosed>
+        </PurchaseOrderLineRet>
+        
+        <DataExtRet>
+          <OwnerID>0</OwnerID>
+          <DataExtName>Custom Field 1</DataExtName>
+          <DataExtType>STR255TYPE</DataExtType>
+          <DataExtValue>test 1</DataExtValue>
+        </DataExtRet>
+        
+        <DataExtRet>
+          <OwnerID>0</OwnerID>
+          <DataExtName>Custom Field 2</DataExtName>
+          <DataExtType>STR255TYPE</DataExtType>
+          <DataExtValue>test 2</DataExtValue>
+        </DataExtRet>
+        
+        <DataExtRet>
+          <OwnerID>0</OwnerID>
+          <DataExtName>Custom Field 3</DataExtName>
+          <DataExtType>STR255TYPE</DataExtType>
+          <DataExtValue>test 3</DataExtValue>
+        </DataExtRet>
+        
+      </PurchaseOrderRet>
+    </PurchaseOrderQueryRs>
+  </QBXMLMsgsRs>
+</QBXML>

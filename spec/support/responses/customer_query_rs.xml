@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<QBXML>
+  <QBXMLMsgsRs>
+    <CustomerQueryRs requestID="Q3VzdG9tZXJRdWVyeXwyODk2" statusCode="0" statusSeverity="Info" statusMessage="Status OK">
+      <CustomerRet>
+        <ListID>10006-1211236622</ListID>
+        <TimeCreated>2008-05-19T18:37:02-05:00</TimeCreated>
+        <TimeModified>2008-06-10T23:35:56-05:00</TimeModified>
+        <EditSequence>1213155356</EditSequence>
+        <Name>Keith Palmer</Name>
+        <FullName>Keith Palmer</FullName>
+        <IsActive>true</IsActive>
+        <Sublevel>0</Sublevel>
+        <FirstName>Keith</FirstName>
+        <LastName>Palmer</LastName>
+        <BillAddress>
+          <Addr1>134 Stonemill Road</Addr1>
+          <Addr2>Suite D</Addr2>
+          <City>Storrs</City>
+          <State>CT</State>
+          <PostalCode>06268</PostalCode>
+          <Country>USA</Country>
+        </BillAddress>
+        <ShipAddress>
+          <Addr1>134 Stonemill Road</Addr1>
+          <Addr2>Suite D</Addr2>
+          <City>Storrs</City>
+          <State>CT</State>
+          <PostalCode>06268</PostalCode>
+          <Country>USA</Country>
+        </ShipAddress>
+        <Phone>(860) 634-1602</Phone>
+        <Fax>(860) 429-5182</Fax>
+        <Email>keith@uglyslug.com</Email>
+        <Balance>250.00</Balance>
+        <TotalBalance>250.00</TotalBalance>
+        <SalesTaxCodeRef>
+          <ListID>20000-1211065841</ListID>
+          <FullName>Non</FullName>
+        </SalesTaxCodeRef>
+        <ItemSalesTaxRef>
+          <ListID>10000-1211066051</ListID>
+          <FullName>Out of State</FullName>
+        </ItemSalesTaxRef>
+        <JobStatus>None</JobStatus>
+      </CustomerRet>
+    </CustomerQueryRs>
+  </QBXMLMsgsRs>
+</QBXML>

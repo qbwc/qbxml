@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<QBXML>
+  <QBXMLMsgsRs>
+    <AccountQueryRs requestID="52" statusCode="0" statusSeverity="Info" statusMessage="Status OK">
+      <AccountRet>
+        <ListID>80000020-1209525941</ListID>
+        <TimeCreated>2008-04-29T23:25:41-05:00</TimeCreated>
+        <TimeModified>2008-04-29T23:25:41-05:00</TimeModified>
+        <EditSequence>1209525941</EditSequence>
+        <Name>Checking</Name>
+        <FullName>Checking</FullName>
+        <IsActive>true</IsActive>
+        <Sublevel>0</Sublevel>
+        <AccountType>Bank</AccountType>
+        <Balance>-197.02</Balance>
+        <TotalBalance>-197.02</TotalBalance>
+        <TaxLineInfoRet>
+        <TaxLineID>1864</TaxLineID>
+        <TaxLineName>B/S-Assets: Cash</TaxLineName>
+        </TaxLineInfoRet>
+        <CashFlowClassification>NotApplicable</CashFlowClassification>
+      </AccountRet>
+      <AccountRet>
+        <ListID>8000001E-1203476531</ListID>
+        <TimeCreated>2008-02-19T22:02:11-05:00</TimeCreated>
+        <TimeModified>2008-02-19T22:02:11-05:00</TimeModified>
+        <EditSequence>1203476531</EditSequence>
+        <Name>Accounts Receivable UPDATED</Name>
+        <FullName>Accounts Receivable UPDATED</FullName>
+        <IsActive>true</IsActive>
+        <Sublevel>0</Sublevel>
+        <AccountType>AccountsReceivable</AccountType>
+        <SpecialAccountType>AccountsReceivable</SpecialAccountType>
+        <AccountNumber>11000</AccountNumber>
+        <Desc>Unpaid or unapplied customer </Desc>
+        <Balance>951.65</Balance>
+        <TotalBalance>951.65</TotalBalance>
+        <CashFlowClassification>Operating</CashFlowClassification>
+      </AccountRet>
+    </AccountQueryRs>
+  </QBXMLMsgsRs>
+</QBXML>

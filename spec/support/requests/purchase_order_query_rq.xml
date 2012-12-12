@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="8.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError">
+    <PurchaseOrderQueryRq requestID="UHVyY2hhc2VPcmRlckltcG9ydHwx"  iterator="Start"  >
+      <MaxReturned>10</MaxReturned>
+      <!--<ModifiedDateRangeFilter>
+        <FromModifiedDate>2010-09-27T22:20:09</FromModifiedDate>
+      </ModifiedDateRangeFilter>-->
+      <IncludeLineItems>true</IncludeLineItems>
+      <OwnerID>0</OwnerID>
+    </PurchaseOrderQueryRq> 
+  </QBXMLMsgsRq>
+</QBXML>
