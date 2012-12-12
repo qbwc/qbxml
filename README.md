@@ -74,11 +74,15 @@ q.to_qbxml(hsh, validate: true)
 ## Caveats
 
 Correct case conversion depends on the following ActiveSupport inflection
-setting.
+setting. Correct behaviour cannot be guaranteed if any of the following
+inflections are modified.
 
 ```ruby
+ACRONYMS = ['AP', 'AR', 'COGS', 'COM', 'UOM', 'QBXML', 'UI', 'AVS', 'ID',
+            'PIN', 'SSN', 'COM', 'CLSID', 'FOB', 'EIN', 'UOM', 'PO', 'PIN', 'QB']
+
 ActiveSupport::Inflector.inflections do |inflect|
-  inflect.acronym 'QBXML'
+  ACRONYMS.each { |a| inflect.acronym a }
 end
 ```
 
