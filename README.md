@@ -60,13 +60,13 @@ q.from_qbxml(xml)
 Convert a ruby hash to QBXML, skipping validation
 
 ```ruby
-q.to_qbxml(hash)
+q.to_qbxml(hsh)
 ```
 
 Convert a ruby hash to QBXML and validate all types
 
 ```ruby
-q.to_qbxml(hash, validate: true)
+q.to_qbxml(hsh, validate: true)
 ```
 
 ## Caveats
@@ -74,9 +74,11 @@ q.to_qbxml(hash, validate: true)
 Correct case conversion depends on the following ActiveSupport inflection
 setting.
 
-    ActiveSupport::Inflector.inflections do |inflect|
-      inflect.acronym 'QBXML'
-    end
+```ruby
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.acronym 'QBXML'
+end
+```
 
 ## Contributing
 
