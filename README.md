@@ -52,71 +52,22 @@ Print the xml template for a specific type
 Convert valid QBXML to a ruby hash
 
 ```ruby
-xml = %Q(
-  <?qbxml version="2.0"?>
-  <QBXML>
-    <QBXMLMsgsRq onError="stopOnError">
-      <CustomerAddRq requestID="15">
-        <CustomerAdd>
-          <Name>20706 - Eastern XYZ University</Name>
-          <CompanyName>Eastern XYZ University</CompanyName>
-          <FirstName>Keith</FirstName>
-          <LastName>Palmer</LastName>
-          <BillAddress>
-            <Addr1>Eastern XYZ University</Addr1>
-            <Addr2>College of Engineering</Addr2>
-            <Addr3>123 XYZ Road</Addr3>
-            <City>Storrs-Mansfield</City>
-            <State>CT</State>
-            <PostalCode>06268</PostalCode>
-            <Country>United States</Country>
-          </BillAddress>
-          <Phone>860-634-1602</Phone>
-          <AltPhone>860-429-0021</AltPhone>
-          <Fax>860-429-5183</Fax>
-          <Email>keith@consolibyte.com</Email>
-          <Contact>Keith Palmer</Contact>
-        </CustomerAdd>
-      </CustomerAddRq>
-    </QBXMLMsgsRq>
-  </QBXML> )
-
-
 q.from_qbxml(xml)
-
-{"qbxml"=>
- {"qbxml_msgs_rq"=>
-   {"customer_add_rq"=>
-     {"customer_add"=>
-       {"name"=>"20706 - Eastern XYZ University",
-        "company_name"=>"Eastern XYZ University",
-        "first_name"=>"Keith",
-        "last_name"=>"Palmer",
-        "bill_address"=>
-         {"addr1"=>"Eastern XYZ University",
-          "addr2"=>"College of Engineering",
-          "addr3"=>"123 XYZ Road",
-          "city"=>"Storrs-Mansfield",
-          "state"=>"CT",
-          "postal_code"=>"06268",
-          "country"=>"United States"},
-        "phone"=>"860-634-1602",
-        "alt_phone"=>"860-429-0021",
-        "fax"=>"860-429-5183",
-        "email"=>"keith@consolibyte.com",
-        "contact"=>"Keith Palmer"},
-      :xml_attributes=>{"requestID"=>"15"}},
-    :xml_attributes=>{"onError"=>"stopOnError"}}}}
 ```
+
 ### Ruby To QBXML
 
 Convert a ruby hash to QBXML, skipping validation
 
-    q.to_qbxml(hash)
+```ruby
+q.to_qbxml(hash)
+```
 
 Convert a ruby hash to QBXML and validate all types
 
-    q.to_qbxml(hash, validate: true)
+```ruby
+q.to_qbxml(hash, validate: true)
+```
 
 ## Caveats
 
