@@ -1,12 +1,22 @@
 class Qbxml
+  SCHEMA_PATH = File.expand_path('../../../schema', __FILE__)
 
   SCHEMAS = {
-    qb:    'xml_schema/qbxmlops70.xml',
-    qbpos: 'xml_schema/qbposxmlops30.xml' 
-  }
+    qb:    "#{SCHEMA_PATH}/qbxmlops70.xml",
+    qbpos: "#{SCHEMA_PATH}/qbposxmlops30.xml" 
+  }.freeze
 
-  HIDE_IVARS = [:@doc]
-  
+  HIDE_IVARS = [:@doc].freeze
+
+  DIRECTIVE_TAGS = { 
+    :qb => [:qbxml, { version: '7.0' }],
+    :qbpos => [:qbposxml, { version: '3.0' }]
+  }.freeze
+
+  ActiveSupport::Inflector.inflections do |inflect|
+    inflect.acronym 'QBXML'
+  end
+
   def initialize(key = :qb)
     @schema = key
     @doc    = parse_schema(key)
@@ -25,17 +35,29 @@ class Qbxml
   end
 
   def to_qbxml(hash, opts = {})
-    hash = namespace_qbxml_hash(hash) unless opts[:no_napespace]
-    inner_xml = XmlHash.to_xml(hash, opts)
+    hash = Qbxml::Hash.from_hash(hash, camelize: true)
+
+    opts[:validate]      = false unless opts.key?(:validate) 
+    opts[:add_namespace] = true  unless opts.key?(:add_namespace) 
+    hash = namespace_qbxml_hash(hash) if opts[:add_namespace] 
+    validate_qbxml_hash(hash) if opts[:validate]
+
+    opts[:root] = hash.keys.first
+    opts[:attributes] = hash.delete(:xml_attributes)
+    opts[:directive] = DIRECTIVE_TAGS[@schema]
+    hash = hash.values.first
+
+    hash.to_xml(opts)
   end
 
   def from_qbxml(xml, opts = {})
-    inner_hash = XmlHash.to_hash(xml, opts)
-    opts[:no_namespace] ? inner_hash : namespace_qbxml_hash(inner_hash)
-  end
+    inner_hash = Qbxml::Hash.from_xml(xml, underscore: true)
 
-  def validate
-    
+    if opts[:no_namespace] 
+      inner_hash 
+    else 
+      namespace_qbxml_hash(inner_hash)
+    end
   end
 
   def inspect
@@ -48,7 +70,7 @@ class Qbxml
     return "#{prefix}>"
   end
 
-private
+# private
 
   def parse_schema(key)
     File.open(select_schema(key)) { |f| Nokogiri::XML(f) }
@@ -58,12 +80,31 @@ private
     SCHEMAS[schema_key] || raise("invalid schema, must be one of #{SCHEMA.keys.inspect}")
   end
 
+# hash to qbxml
+
   def namespace_qbxml_hash(hash)
-    root_key = hash.keys.first
-    node = describe(root_key) 
-    while parent = node.parent
-      hash = XmlHash[parent.name => hash]
+    node = describe(hash.keys.first)
+    return hash unless node
+
+    path = node.path.split('/')[1...-1].reverse
+    path.inject(hash) { |h,p| Qbxml::Hash[ p => h ] }
+  end
+
+  def validate_qbxml_hash(hash, path = [])
+    hash.each do |k,v|
+      next if k == :xml_attributes
+      key_path = path.dup << k
+      if v.is_a?(Hash)
+        validate_qbxml_hash(v, key_path)
+      else
+        validate_xpath(key_path)
+      end
     end
+  end
+
+  def validate_xpath(path)
+    xpath = "/#{path.join('/')}"
+    raise "#{xpath} is not a valid QBXML type" if @doc.xpath(xpath).empty?
   end
 
 end

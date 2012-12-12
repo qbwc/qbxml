@@ -2,6 +2,10 @@
 
 ActiveSupport::XmlMini.backend = 'Nokogiri'
 
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.acronym 'QBXML'
+end
+
 ## Installation
 
 Add this line to your application's Gemfile:
