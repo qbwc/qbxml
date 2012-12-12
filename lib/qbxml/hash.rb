@@ -1,5 +1,6 @@
 class Qbxml::Hash < ::Hash
   CONTENT_ROOT = '__content__'.freeze
+  ATTR_ROOT    = 'xml_attributes'.freeze
   
   def self.from_hash(hash, opts = {}, &block)
     if opts[:camelize]
@@ -15,9 +16,9 @@ class Qbxml::Hash < ::Hash
     hash_to_xml(opts)
   end
 
-  def self.from_xml(data, opts = {})
+  def self.from_xml(schema, data, opts = {})
     doc = Nokogiri::XML(data)
-    self.from_hash(xml_to_hash(doc.root), opts)
+    self.from_hash(xml_to_hash(schema, doc.root), opts)
   end
 
 private
@@ -29,9 +30,10 @@ private
     opts[:indent]          ||= 2
     opts[:root]            ||= :hash
     opts[:directive]       ||= [:xml, {}]
-    opts[:attributes]      ||= self.delete('xml_attributes') || {} 
+    opts[:attributes]      ||= self.delete(ATTR_ROOT) || {} 
     opts[:builder]         ||= Builder::XmlMarkup.new(indent: opts[:indent])
     opts[:skip_types]      = true unless opts.key?(:skip_types) 
+    opts[:skip_instruct]   = true unless opts.key?(:skip_instruct)
     builder = opts[:builder]
 
     unless opts.delete(:skip_instruct)
@@ -43,6 +45,8 @@ private
         case val
         when Hash
           val.to_xml(opts.merge({root: key, skip_instruct: true}))
+        when Array
+          val.map { |i| i.to_xml(opts.merge({root: key, skip_instruct: true})) }
         else
           builder.tag!(key, val, {})
         end
@@ -54,40 +58,45 @@ private
 
   # https://github.com/rails/rails/blob/master/activesupport/lib/active_support/xml_mini/nokogiri.rb
   #
-  def self.xml_to_hash(node, hash = {})
-    node_hash = {}
+  def self.xml_to_hash(schema, node, hash = {})
+    node_hash = {CONTENT_ROOT => '', ATTR_ROOT => {}}
     name = node.name
 
     # Insert node hash into parent hash correctly.
     case hash[name]
     when Array then hash[name] << node_hash
     when Hash  then hash[name] = [hash[name], node_hash]
-    when nil   then hash[name] = node_hash
-    else hash[name] = Array(hash[name])
+    else hash[name] = node_hash
     end
 
     # Handle child elements
     node.children.each do |c|
       if c.element?
-        hash[name] = node_hash
-        xml_to_hash(c, node_hash)
+        xml_to_hash(schema, c, node_hash)
       elsif c.text? || c.cdata?
-        node_hash[CONTENT_ROOT] ||= ''
         node_hash[CONTENT_ROOT] << c.content
       end
     end
 
     # Handle attributes
-    node_hash['xml_attributes'] = {}
-    node.attribute_nodes.each { |a| node_hash['xml_attributes'][a.node_name] = a.value }
+    node.attribute_nodes.each { |a| node_hash[ATTR_ROOT][a.node_name] = a.value }
 
-    # Remove content node if it is blank and there are child tags
-    if node_hash.length > 1 && node_hash[CONTENT_ROOT].strip.blank?
+    # TODO: Strip text
+    # node_hash[CONTENT_ROOT].strip!
+
+    # Format nodes
+    if node_hash.size > 2 || node_hash[ATTR_ROOT].present?
       node_hash.delete(CONTENT_ROOT)
-    elsif node_hash.length == 2 && node_hash.include?(CONTENT_ROOT) && node_hash['xml_attributes'].empty?
+    elsif node_hash[CONTENT_ROOT].present?
+      node_hash.delete(ATTR_ROOT)
+      type_path = node.path.gsub(/\[\d+\]/,'')
+      type_proc = Qbxml::TYPE_MAP[schema.xpath(type_path).first.try(:text)]
+      raise "#{node.path} is not a valid type" unless type_proc
+      hash[name] = type_proc[node_hash[CONTENT_ROOT]]
+    else
       hash[name] = node_hash[CONTENT_ROOT]
     end
-
+    binding.pry if name == "PoNumber"
 
     hash
   end
@@ -95,7 +104,7 @@ private
 private
 
   def self.deep_convert(hash, opts = {}, &block)
-    ignored_keys = opts[:ignore] || ['xml_attributes']
+    ignored_keys = opts[:ignore] || [ATTR_ROOT]
     hash.inject(self.new) do |h, (k,v)|
      ignored_key = ignored_keys.include?(k) 
       h[(block_given? && !ignored_key) ? yield(k.to_s) : k] = \

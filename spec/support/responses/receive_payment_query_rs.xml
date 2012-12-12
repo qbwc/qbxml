@@ -1,57 +1,51 @@
 <?xml version="1.0"?>
 <QBXML>
-    <QBXMLMsgsRs>
-        <ReceivePaymentQueryRs requestID="UmVjZWl2ZVBheW1lbnRRdWVyeXwyNDg0LTEyNjM0OTkyMzE=" statusCode="0" statusSeverity="Info" statusMessage="Status OK">
-            <ReceivePaymentRet>
-                <TxnID>2484-1263499231</TxnID>
-                <TimeCreated>2010-01-14T12:00:31-08:00</TimeCreated>
-                <TimeModified>2010-10-03T19:15:35-08:00</TimeModified>
-                <EditSequence>1286158535</EditSequence>
-                <TxnNumber>1664</TxnNumber>
-                <CustomerRef>
-                    <ListID>800002FB-1263497272</ListID>
-                    <FullName>Greg F</FullName>
-                </CustomerRef>
-                <ARAccountRef>
-                    <ListID>80000068-1257362264</ListID>
-                    <FullName>Accounts Receivable - USD</FullName>
-                </ARAccountRef>
-                <TxnDate>2009-10-02</TxnDate>
-                <RefNumber>101</RefNumber>
-                <TotalAmount>112.35</TotalAmount>
-                <CurrencyRef>
-                    <ListID>80000096-1257354056</ListID>
-                    <FullName>US Dollar</FullName>
-                </CurrencyRef>
-                <ExchangeRate>1.05471</ExchangeRate>
-                <TotalAmountInHomeCurrency>118.50</TotalAmountInHomeCurrency>
-                <PaymentMethodRef>
-                    <ListID>80000005-1257354059</ListID>
-                    <FullName>Visa</FullName>
-                </PaymentMethodRef>
-                <DepositToAccountRef>
-                    <ListID>8000006A-1257362708</ListID>
-                    <FullName>Undeposited Funds</FullName>
-                </DepositToAccountRef>
-                <CreditCardTxnInfo>
-                    <CreditCardTxnInputInfo>
-                        <CreditCardNumber>xxxxxxxxxxxx1234</CreditCardNumber>
-                        <ExpirationMonth>1</ExpirationMonth>
-                        <ExpirationYear>2011</ExpirationYear>
-                        <TransactionMode>CardNotPresent</TransactionMode>
-                    </CreditCardTxnInputInfo>
-                </CreditCardTxnInfo>
-                <UnusedPayment>0.00</UnusedPayment>
-                <UnusedCredits>0.00</UnusedCredits>
-                <AppliedToTxnRet>
-                    <TxnID>244B-1263497335</TxnID>
-                    <TxnType>Invoice</TxnType>
-                    <TxnDate>2009-09-30</TxnDate>
-                    <RefNumber>OP13988</RefNumber>
-                    <BalanceRemaining>0.00</BalanceRemaining>
-                    <Amount>112.35</Amount>
-                </AppliedToTxnRet>
-            </ReceivePaymentRet>
-        </ReceivePaymentQueryRs>
-    </QBXMLMsgsRs>
+  <QBXMLMsgsRs>
+    <ReceivePaymentQueryRs requestID="UmVjZWl2ZVBheW1lbnRRdWVyeXwyNDg0LTEyNjM0OTkyMzE=" statusCode="0" statusSeverity="Info" statusMessage="Status OK">
+      <ReceivePaymentRet>
+        <TxnID>2484-1263499231</TxnID>
+        <TimeCreated>2010-01-14T12:00:31-08:00</TimeCreated>
+        <TimeModified>2010-10-03T19:15:35-08:00</TimeModified>
+        <EditSequence>1286158535</EditSequence>
+        <TxnNumber>1664</TxnNumber>
+        <CustomerRef>
+          <ListID>800002FB-1263497272</ListID>
+          <FullName>Greg F</FullName>
+        </CustomerRef>
+        <ARAccountRef>
+          <ListID>80000068-1257362264</ListID>
+          <FullName>Accounts Receivable - USD</FullName>
+        </ARAccountRef>
+        <TxnDate>2009-10-02</TxnDate>
+        <RefNumber>101</RefNumber>
+        <TotalAmount>112.35</TotalAmount>
+        <PaymentMethodRef>
+          <ListID>80000005-1257354059</ListID>
+          <FullName>Visa</FullName>
+        </PaymentMethodRef>
+        <DepositToAccountRef>
+          <ListID>8000006A-1257362708</ListID>
+          <FullName>Undeposited Funds</FullName>
+        </DepositToAccountRef>
+        <CreditCardTxnInfo>
+          <CreditCardTxnInputInfo>
+            <CreditCardNumber>xxxxxxxxxxxx1234</CreditCardNumber>
+            <ExpirationMonth>1</ExpirationMonth>
+            <ExpirationYear>2011</ExpirationYear>
+            <TransactionMode>CardNotPresent</TransactionMode>
+          </CreditCardTxnInputInfo>
+        </CreditCardTxnInfo>
+        <UnusedPayment>0.00</UnusedPayment>
+        <UnusedCredits>0.00</UnusedCredits>
+        <AppliedToTxnRet>
+          <TxnID>244B-1263497335</TxnID>
+          <TxnType>Invoice</TxnType>
+          <TxnDate>2009-09-30</TxnDate>
+          <RefNumber>OP13988</RefNumber>
+          <BalanceRemaining>0.00</BalanceRemaining>
+          <Amount>112.35</Amount>
+        </AppliedToTxnRet>
+      </ReceivePaymentRet>
+    </ReceivePaymentQueryRs>
+  </QBXMLMsgsRs>
 </QBXML>

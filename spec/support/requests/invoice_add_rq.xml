@@ -16,9 +16,8 @@
           <PostalCode>06279</PostalCode>
           <Country>United States</Country>
         </BillAddress>
-        <PONumber></PONumber>
-        <Memo></Memo>
-
+        <PONumber/>
+        <Memo/>
         <InvoiceLineAdd>
           <ItemRef>
             <FullName>Downloaded Invoice</FullName>
@@ -27,7 +26,6 @@
           <Quantity>1</Quantity>
           <Rate>295</Rate>
         </InvoiceLineAdd>
-
         <InvoiceLineAdd>
           <ItemRef>
             <FullName>Downloaded Invoice</FullName>
@@ -36,7 +34,6 @@
           <Quantity>3</Quantity>
           <Rate>25</Rate>
         </InvoiceLineAdd>
-      
       </InvoiceAdd>
     </InvoiceAddRq>
   </QBXMLMsgsRq>
