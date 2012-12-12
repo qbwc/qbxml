@@ -6,11 +6,11 @@ class Qbxml::Hash < ::Hash
   end
 
   def camelize
-    self.transform_keys { |k| k.camelize }
+    transform_keys { |k| k.camelize }
   end
 
   def underscore
-    self.transform_keys { |k| k.underscore}
+    transform_keys { |k| k.underscore}
   end
 
   def self.to_xml(hash, opts = {})
@@ -62,10 +62,17 @@ private
   def self.hash_to_xml(hash, options = {})
     options = options.dup
     options[:indent]          ||= 2
-    options[:root]            ||= 'hash'
+    options[:root]            ||= :hash
     options[:builder]         ||= Builder::XmlMarkup.new(indent: options[:indent])
-    options[:skip_types]      ||= true
-    # options[:skip_instruct]   ||= true
+    options[:wrapped]         = true unless options.key?(:wrapped)
+    options[:skip_types]      = true unless options.key?(:skip_types) 
+    options[:skip_instruct]   = true unless options.key?(:skip_instruct) 
+
+    if options[:wrapped]
+      name, content = hash.first
+      options[:root] = name
+      hash = content
+    end
 
     builder = options[:builder]
     builder.instruct! unless options.delete(:skip_instruct)
@@ -75,7 +82,7 @@ private
 
     builder.tag!(root, xml_attributes) do
       hash.each do |key, val| 
-        val = (val.is_a?(Hash) ? XmlHash.new(val).camelize : val)
+        val = (val.is_a?(Hash) ? XmlHash[val].camelize : val)
         ActiveSupport::XmlMini.to_tag(key, val, options)
       end
 
@@ -83,7 +90,7 @@ private
     end
   end
 
-# helpers
+protected
 
   def transform_keys(&block)
     return unless block_given?

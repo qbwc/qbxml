@@ -24,17 +24,14 @@ class Qbxml
     @doc.xpath("//#{type}").first
   end
 
-  def to_qbxml(h, opts = {})
-    qbxml_hash = 
-      unless opts[:skip_namespace]
-        
-      else h
-      end
-    XmlHash[h].to_xml(opts)
+  def to_qbxml(hash, opts = {})
+    hash = namespace_qbxml_hash(hash) unless opts[:no_napespace]
+    inner_xml = XmlHash.to_xml(hash, opts)
   end
 
-  def from_qbxml(xml)
-    XmlHash.to_hash(xml)
+  def from_qbxml(xml, opts = {})
+    inner_hash = XmlHash.to_hash(xml, opts)
+    opts[:no_namespace] ? inner_hash : namespace_qbxml_hash(inner_hash)
   end
 
   def validate
@@ -59,6 +56,14 @@ private
 
   def select_schema(schema_key)
     SCHEMAS[schema_key] || raise("invalid schema, must be one of #{SCHEMA.keys.inspect}")
+  end
+
+  def namespace_qbxml_hash(hash)
+    root_key = hash.keys.first
+    node = describe(root_key) 
+    while parent = node.parent
+      hash = XmlHash[parent.name => hash]
+    end
   end
 
 end

@@ -8,5 +8,3 @@ class Qbxml; end
 
 require_relative 'qbxml/qbxml.rb'
 require_relative 'qbxml/hash.rb'
-
-end
