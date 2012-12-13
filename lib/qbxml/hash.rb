@@ -1,52 +1,61 @@
 class Qbxml::Hash < ::Hash
+  include Qbxml::Types
+
   CONTENT_ROOT = '__content__'.freeze
   ATTR_ROOT    = 'xml_attributes'.freeze
   
   def self.from_hash(hash, opts = {}, &block)
-    if opts[:camelize]
-      deep_convert(hash, opts) { |k| k.camelize } 
-    elsif opts[:underscore]
-      deep_convert(hash, opts) { |k| k.underscore } 
-    else
-      deep_convert(hash, opts, &block)
-    end
+    key_proc = \
+      if opts[:camelize]
+        lambda { |k| k.camelize } 
+      elsif opts[:underscore]
+        lambda { |k| k.underscore } 
+      end
+
+    deep_convert(hash, opts, &key_proc)
   end
 
   def to_xml(opts = {})
-    hash_to_xml(opts)
+    hash = self.hash_to_xml(self, opts)
+  end
+
+  def self.to_xml(hash, opts = {})
+    opts[:root], hash = self.first
+    opts[:attributes] = self.delete(ATTR_ROOT)
+    hash_to_xml(hash, opts)
   end
 
   def self.from_xml(schema, data, opts = {})
     doc = Nokogiri::XML(data)
-    self.from_hash(xml_to_hash(schema, doc.root), opts)
+    from_hash(xml_to_hash(schema, doc.root), opts)
   end
 
 private
 
   # https://github.com/rails/rails/blob/master/activesupport/lib/active_support/core_ext/hash/conversions.rb
   #
-  def hash_to_xml(opts = {})
+  def self.hash_to_xml(hash, opts)
     opts = opts.dup
     opts[:indent]          ||= 2
     opts[:root]            ||= :hash
-    opts[:directive]       ||= [:xml, {}]
-    opts[:attributes]      ||= self.delete(ATTR_ROOT) || {} 
+    opts[:attributes]      ||= {} 
+    opts[:xml_directive]   ||= [:xml, {}]
     opts[:builder]         ||= Builder::XmlMarkup.new(indent: opts[:indent])
     opts[:skip_types]      = true unless opts.key?(:skip_types) 
-    opts[:skip_instruct]   = true unless opts.key?(:skip_instruct)
+    opts[:skip_instruct]   = false unless opts.key?(:skip_instruct)
     builder = opts[:builder]
-
+    
     unless opts.delete(:skip_instruct)
-      builder.instruct!(opts[:directive].first, opts[:directive].last)
+      builder.instruct!(opts[:xml_directive].first, opts[:directive].last)
     end
 
     builder.tag!(opts[:root], opts.delete(:attributes)) do
-      self.each do |key, val| 
+      hash.each do |key, val| 
         case val
         when Hash
-          val.to_xml(opts.merge({root: key, skip_instruct: true}))
+          self.hash_to_xml(val, opts.merge({root: key, skip_instruct: true}))
         when Array
-          val.map { |i| i.to_xml(opts.merge({root: key, skip_instruct: true})) }
+          val.map { |i| self.hash_to_xml(i, opts.merge({root: key, skip_instruct: true})) }
         else
           builder.tag!(key, val, {})
         end
@@ -56,6 +65,7 @@ private
     end
   end
 
+  
   # https://github.com/rails/rails/blob/master/activesupport/lib/active_support/xml_mini/nokogiri.rb
   #
   def self.xml_to_hash(schema, node, hash = {})
@@ -84,7 +94,7 @@ private
     # TODO: Strip text
     # node_hash[CONTENT_ROOT].strip!
 
-    # Format nodes
+    # Format node
     if node_hash.size > 2 || node_hash[ATTR_ROOT].present?
       node_hash.delete(CONTENT_ROOT)
     elsif node_hash[CONTENT_ROOT].present?
@@ -96,7 +106,6 @@ private
     else
       hash[name] = node_hash[CONTENT_ROOT]
     end
-    binding.pry if name == "PoNumber"
 
     hash
   end
@@ -105,10 +114,14 @@ private
 
   def self.deep_convert(hash, opts = {}, &block)
     ignored_keys = opts[:ignore] || [ATTR_ROOT]
+
     hash.inject(self.new) do |h, (k,v)|
-     ignored_key = ignored_keys.include?(k) 
-      h[(block_given? && !ignored_key) ? yield(k.to_s) : k] = \
-        ignored_key ? v :
+      ignored = ignored_keys.include?(k) 
+      if ignored
+        h[k] = v
+      else
+        key = block_given? ? yield(k.to_s) : k
+        h[key] = \
           case v
           when Hash
             deep_convert(v, &block)
@@ -116,6 +129,7 @@ private
             v.map { |i| i.is_a?(Hash) ? deep_convert(i, &block) : i }
           else v
           end; h
+      end
     end
   end
 

@@ -1,4 +1,6 @@
 class Qbxml
+  include Types
+
   SCHEMA_PATH = File.expand_path('../../../schema', __FILE__)
 
   SCHEMAS = {
@@ -8,85 +10,48 @@ class Qbxml
 
   HIDE_IVARS = [:@doc].freeze
 
-  DIRECTIVE_TAGS = { 
-    :qb => [:qbxml, { version: '7.0' }],
-    :qbpos => [:qbposxml, { version: '3.0' }]
-  }.freeze
-
-  FLOAT_CAST = Proc.new {|d| d ? Float(d) : 0.0}
-  BOOL_CAST  = Proc.new {|d| d ? (d == 'True' ? true : false) : false }
-  DATE_CAST  = Proc.new {|d| d ? Date.parse(d).strftime("%Y-%m-%d") : Date.today.strftime("%Y-%m-%d") }
-  TIME_CAST  = Proc.new {|d| d ? Time.parse(d).xmlschema : Time.now.xmlschema }
-  INT_CAST   = Proc.new {|d| d ? Integer(d.to_i) : 0 }
-  STR_CAST   = Proc.new {|d| d ? String(d) : ''}
-
-  TYPE_MAP= {
-    "AMTTYPE"          => FLOAT_CAST,
-    "BOOLTYPE"         => BOOL_CAST,
-    "DATETIMETYPE"     => TIME_CAST,
-    "DATETYPE"         => DATE_CAST,
-    "ENUMTYPE"         => STR_CAST,
-    "FLOATTYPE"        => FLOAT_CAST,
-    "GUIDTYPE"         => STR_CAST,
-    "IDTYPE"           => STR_CAST,
-    "INTTYPE"          => INT_CAST,
-    "PERCENTTYPE"      => FLOAT_CAST,
-    "PRICETYPE"        => FLOAT_CAST,
-    "QUANTYPE"         => INT_CAST,
-    "STRTYPE"          => STR_CAST,
-    "TIMEINTERVALTYPE" => STR_CAST
-  }
-
-  ACRONYMS = ['AP', 'AR', 'COGS', 'COM', 'UOM', 'QBXML', 'UI', 'AVS', 'ID',
-              'PIN', 'SSN', 'COM', 'CLSID', 'FOB', 'EIN', 'UOM', 'PO', 'PIN', 'QB']
-
-  ActiveSupport::Inflector.inflections do |inflect|
-    ACRONYMS.each { |a| inflect.acronym a }
-  end
-
   def initialize(key = :qb)
     @schema = key
     @doc    = parse_schema(key)
   end
 
+  # returns all xml nodes matching a specified pattern
+  #
   def types(pattern = nil)
-    types = @doc.xpath("//*").map { |e| e.name }.uniq
+    @types ||= @doc.xpath("//*").map { |e| e.name }.uniq
 
     pattern ?
-      types.select { |t| t =~ Regexp.new(pattern) } :
-      types
+      @types.select { |t| t =~ Regexp.new(pattern) } :
+      @types
   end
 
+  # returns the xml node for the specified type
+  #
   def describe(type)
     @doc.xpath("//#{type}").first
   end
 
+  # converts a hash to qbxml with optional validation
+  #
   def to_qbxml(hash, opts = {})
     hash = Qbxml::Hash.from_hash(hash, camelize: true)
-
-    opts[:validate]      = false unless opts.key?(:validate) 
-    opts[:add_namespace] = true  unless opts.key?(:add_namespace) 
-    hash = namespace_qbxml_hash(hash) if opts[:add_namespace] 
+    hash = namespace_qbxml_hash(hash) unless opts[:no_namespace] 
     validate_qbxml_hash(hash) if opts[:validate]
 
-    opts[:root] = hash.keys.first
-    opts[:attributes] = hash.delete('xml_attributes')
-    opts[:directive] = DIRECTIVE_TAGS[@schema]
-    hash = hash.values.first
-
-    hash.to_xml(opts)
+    Qbxml::Hash.to_xml(hash, xml_directive: XML_DIRECTIVES[@schema])
   end
 
+  # converts qbxml to a hash
+  #
   def from_qbxml(xml, opts = {})
-    inner_hash = Qbxml::Hash.from_xml(@doc, xml, underscore: true)
+    hash = Qbxml::Hash.from_xml(@doc, xml, underscore: true)
 
-    if opts[:no_namespace] 
-      inner_hash 
-    else 
-      namespace_qbxml_hash(inner_hash)
-    end
+    opts[:no_namespace] ? hash : namespace_qbxml_hash(hash)
   end
 
+  # making this more sane so that it doesn't dump the whole schema doc to stdout
+  # every time
+  #
   def inspect
     prefix = "#<#{self.class}:0x#{self.__id__.to_s(16)} "
 
@@ -119,7 +84,7 @@ class Qbxml
 
   def validate_qbxml_hash(hash, path = [])
     hash.each do |k,v|
-      next if k == 'xml_attributes'
+      next if k == Qbxml::HASH::ATTR_ROOT
       key_path = path.dup << k
       if v.is_a?(Hash)
         validate_qbxml_hash(v, key_path)

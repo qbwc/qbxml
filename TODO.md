@@ -1,3 +1,3 @@
 stupid backwards compatibility
-- use symbol for :xml_attributes
+- rename :xml_attributes to __attributes__
 - remove empty xml_attributes hashes

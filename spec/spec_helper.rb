@@ -12,9 +12,9 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
 end
 
-SUPPORT_DIR  = "#{File.dirname(__FILE__)}/support"
-REQUEST_DIR  = "#{SUPPORT_DIR}/requests"
-RESPONSE_DIR = "#{SUPPORT_DIR}/responses"
+SUPPORT_DIR  = "#{File.dirname(__FILE__)}/support" unless defined? SUPPORT_DIR
+REQUEST_DIR  = "#{SUPPORT_DIR}/requests" unless defined? REQUEST_DIR
+RESPONSE_DIR = "#{SUPPORT_DIR}/responses" unless defined? RESPONSE_DIR
 
 def requests
   Dir["#{REQUEST_DIR}/*.xml"].map { |f| File.read(f) }
