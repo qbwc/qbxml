@@ -1,8 +1,16 @@
+# XML Conversion References
+#
+# https://github.com/rails/rails/blob/master/activesupport/lib/active_support/core_ext/hash/conversions.rb
+# https://github.com/rails/rails/blob/master/activesupport/lib/active_support/xml_mini/nokogiri.rb
+#
+#
 class Qbxml::Hash < ::Hash
   include Qbxml::Types
 
   CONTENT_ROOT = '__content__'.freeze
   ATTR_ROOT    = 'xml_attributes'.freeze
+  IGNORED_KEYS = [ATTR_ROOT]
+
   
   def self.from_hash(hash, opts = {}, &block)
     key_proc = \
@@ -16,25 +24,23 @@ class Qbxml::Hash < ::Hash
   end
 
   def to_xml(opts = {})
-    hash = self.hash_to_xml(self, opts)
+    hash = self.class.to_xml(self, opts)
   end
 
   def self.to_xml(hash, opts = {})
-    opts[:root], hash = self.first
-    opts[:attributes] = self.delete(ATTR_ROOT)
+    opts[:root], hash = hash.first
+    opts[:attributes] = hash.delete(ATTR_ROOT)
     hash_to_xml(hash, opts)
   end
 
-  def self.from_xml(schema, data, opts = {})
-    doc = Nokogiri::XML(data)
-    from_hash(xml_to_hash(schema, doc.root), opts)
+  def self.from_xml(xml, opts = {})
+    from_hash(
+      xml_to_hash(Nokogiri::XML(xml).root, {}, opts), opts)
   end
 
 private
 
-  # https://github.com/rails/rails/blob/master/activesupport/lib/active_support/core_ext/hash/conversions.rb
-  #
-  def self.hash_to_xml(hash, opts)
+  def self.hash_to_xml(hash, opts = {})
     opts = opts.dup
     opts[:indent]          ||= 2
     opts[:root]            ||= :hash
@@ -46,7 +52,7 @@ private
     builder = opts[:builder]
     
     unless opts.delete(:skip_instruct)
-      builder.instruct!(opts[:xml_directive].first, opts[:directive].last)
+      builder.instruct!(opts[:xml_directive].first, opts[:xml_directive].last)
     end
 
     builder.tag!(opts[:root], opts.delete(:attributes)) do
@@ -64,13 +70,11 @@ private
       yield builder if block_given?
     end
   end
-
   
-  # https://github.com/rails/rails/blob/master/activesupport/lib/active_support/xml_mini/nokogiri.rb
-  #
-  def self.xml_to_hash(schema, node, hash = {})
+  def self.xml_to_hash(node, hash = {}, opts = {})
     node_hash = {CONTENT_ROOT => '', ATTR_ROOT => {}}
     name = node.name
+    schema = opts[:schema]
 
     # Insert node hash into parent hash correctly.
     case hash[name]
@@ -82,7 +86,7 @@ private
     # Handle child elements
     node.children.each do |c|
       if c.element?
-        xml_to_hash(schema, c, node_hash)
+        xml_to_hash(c, node_hash, opts)
       elsif c.text? || c.cdata?
         node_hash[CONTENT_ROOT] << c.content
       end
@@ -99,10 +103,12 @@ private
       node_hash.delete(CONTENT_ROOT)
     elsif node_hash[CONTENT_ROOT].present?
       node_hash.delete(ATTR_ROOT)
-      type_path = node.path.gsub(/\[\d+\]/,'')
-      type_proc = Qbxml::TYPE_MAP[schema.xpath(type_path).first.try(:text)]
-      raise "#{node.path} is not a valid type" unless type_proc
-      hash[name] = type_proc[node_hash[CONTENT_ROOT]]
+      hash[name] = \
+        if schema
+          typecast(schema, node.path, node_hash[CONTENT_ROOT])
+        else
+          node_hash[CONTENT_ROOT]
+        end
     else
       hash[name] = node_hash[CONTENT_ROOT]
     end
@@ -110,13 +116,19 @@ private
     hash
   end
 
+
 private
 
-  def self.deep_convert(hash, opts = {}, &block)
-    ignored_keys = opts[:ignore] || [ATTR_ROOT]
+  def self.typecast(schema, xpath, value)
+    type_path = xpath.gsub(/\[\d+\]/,'')
+    type_proc = Qbxml::TYPE_MAP[schema.xpath(type_path).first.try(:text)]
+    raise "#{xpath} is not a valid type" unless type_proc
+    type_proc[value]
+  end
 
+  def self.deep_convert(hash, opts = {}, &block)
     hash.inject(self.new) do |h, (k,v)|
-      ignored = ignored_keys.include?(k) 
+      ignored = IGNORED_KEYS.include?(k) 
       if ignored
         h[k] = v
       else
@@ -128,8 +140,8 @@ private
           when Array
             v.map { |i| i.is_a?(Hash) ? deep_convert(i, &block) : i }
           else v
-          end; h
-      end
+          end
+      end; h
     end
   end
 

@@ -44,7 +44,7 @@ class Qbxml
   # converts qbxml to a hash
   #
   def from_qbxml(xml, opts = {})
-    hash = Qbxml::Hash.from_xml(@doc, xml, underscore: true)
+    hash = Qbxml::Hash.from_xml(xml, underscore: true, schema: @doc)
 
     opts[:no_namespace] ? hash : namespace_qbxml_hash(hash)
   end
