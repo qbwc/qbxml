@@ -74,7 +74,7 @@ q.to_qbxml(hsh, validate: true)
 ## Caveats
 
 Correct case conversion depends on the following ActiveSupport inflection
-setting. Correct behaviour cannot be guaranteed if any of the following
+settings. Correct behaviour cannot be guaranteed if any of the following
 inflections are modified.
 
 ```ruby
