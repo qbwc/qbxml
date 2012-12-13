@@ -44,7 +44,7 @@ private
     opts = opts.dup
     opts[:indent]          ||= 2
     opts[:root]            ||= :hash
-    opts[:attributes]      ||= {} 
+    opts[:attributes]      ||= (hash.delete(ATTR_ROOT) || {})
     opts[:xml_directive]   ||= [:xml, {}]
     opts[:builder]         ||= Builder::XmlMarkup.new(indent: opts[:indent])
     opts[:skip_types]      = true unless opts.key?(:skip_types) 
