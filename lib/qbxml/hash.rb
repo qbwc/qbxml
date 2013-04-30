@@ -128,11 +128,12 @@ private
 
   def self.deep_convert(hash, opts = {}, &block)
     hash.inject(self.new) do |h, (k,v)|
+      k = k.to_s
       ignored = IGNORED_KEYS.include?(k) 
       if ignored
         h[k] = v
       else
-        key = block_given? ? yield(k.to_s) : k
+        key = block_given? ? yield(k) : k
         h[key] = \
           case v
           when Hash
