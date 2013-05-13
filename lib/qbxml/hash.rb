@@ -11,13 +11,13 @@ class Qbxml::Hash < ::Hash
   ATTR_ROOT    = 'xml_attributes'.freeze
   IGNORED_KEYS = [ATTR_ROOT]
 
-  
+
   def self.from_hash(hash, opts = {}, &block)
     key_proc = \
       if opts[:camelize]
-        lambda { |k| k.camelize } 
+        lambda { |k| k.camelize.gsub(/Id\z/,'ID')}
       elsif opts[:underscore]
-        lambda { |k| k.underscore } 
+        lambda { |k| k.underscore }
       end
 
     deep_convert(hash, opts, &key_proc)
@@ -50,7 +50,7 @@ private
     opts[:skip_types]      = true unless opts.key?(:skip_types) 
     opts[:skip_instruct]   = false unless opts.key?(:skip_instruct)
     builder = opts[:builder]
-    
+
     unless opts.delete(:skip_instruct)
       builder.instruct!(opts[:xml_directive].first, opts[:xml_directive].last)
     end
@@ -70,7 +70,7 @@ private
       yield builder if block_given?
     end
   end
-  
+
   def self.xml_to_hash(node, hash = {}, opts = {})
     node_hash = {CONTENT_ROOT => '', ATTR_ROOT => {}}
     name = node.name

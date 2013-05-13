@@ -29,7 +29,7 @@ module Qbxml::Types
     "TIMEINTERVALTYPE" => STR_CAST
   }
 
-  ACRONYMS = ['AP', 'AR', 'COGS', 'COM', 'UOM', 'QBXML', 'UI', 'AVS', 'ID',
+  ACRONYMS = ['AP', 'AR', 'COGS', 'COM', 'UOM', 'QBXML', 'UI', 'AVS',
               'PIN', 'SSN', 'COM', 'CLSID', 'FOB', 'EIN', 'UOM', 'PO', 'PIN', 'QB']
 
   ActiveSupport::Inflector.inflections do |inflect|
