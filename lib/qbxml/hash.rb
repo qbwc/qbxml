@@ -42,7 +42,7 @@ private
 
   def self.hash_to_xml(hash, opts = {})
     opts = opts.dup
-    opts[:indent]          ||= 2
+    opts[:indent]          ||= 0
     opts[:root]            ||= :hash
     opts[:attributes]      ||= (hash.delete(ATTR_ROOT) || {})
     opts[:xml_directive]   ||= [:xml, {}]
@@ -56,7 +56,7 @@ private
     end
 
     builder.tag!(opts[:root], opts.delete(:attributes)) do
-      hash.each do |key, val| 
+      hash.each do |key, val|
         case val
         when Hash
           self.hash_to_xml(val, opts.merge({root: key, skip_instruct: true}))
