@@ -19,5 +19,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('activesupport', '>= 3.2.9')
   gem.add_dependency('nokogiri', '~> 1.5.0')
-  gem.add_dependency('builder', '~> 3.0.0')
+  gem.add_dependency('builder', '~> 3.0')
 end
