@@ -1,12 +1,12 @@
 module Qbxml::Types
 
-  XML_DIRECTIVES = { 
+  XML_DIRECTIVES = {
     :qb => [:qbxml, { version: '7.0' }],
     :qbpos => [:qbposxml, { version: '3.0' }]
   }.freeze
 
   FLOAT_CAST = Proc.new {|d| d ? Float(d) : 0.0}
-  BOOL_CAST  = Proc.new {|d| d ? (d == 'True' ? true : false) : false }
+  BOOL_CAST  = Proc.new {|d| d ? (d.to_s.downcase == 'true' ? true : false) : false }
   DATE_CAST  = Proc.new {|d| d ? Date.parse(d).strftime("%Y-%m-%d") : Date.today.strftime("%Y-%m-%d") }
   TIME_CAST  = Proc.new {|d| d ? Time.parse(d).xmlschema : Time.now.xmlschema }
   INT_CAST   = Proc.new {|d| d ? Integer(d.to_i) : 0 }
