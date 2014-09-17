@@ -84,7 +84,7 @@ class Qbxml
 
   def validate_qbxml_hash(hash, path = [])
     hash.each do |k,v|
-      next if k == Qbxml::HASH::ATTR_ROOT
+      next if k == Qbxml::Hash::ATTR_ROOT
       key_path = path.dup << k
       if v.is_a?(Hash)
         validate_qbxml_hash(v, key_path)
