@@ -4,15 +4,32 @@ class Qbxml
   SCHEMA_PATH = File.expand_path('../../../schema', __FILE__)
 
   SCHEMAS = {
-    qb:    "#{SCHEMA_PATH}/qbxmlops70.xml",
-    qbpos: "#{SCHEMA_PATH}/qbposxmlops30.xml" 
+    qb: {
+      "2.0" => "#{SCHEMA_PATH}/qbxmlops20.xml",
+      "CA3.0" => "#{SCHEMA_PATH}/qbxmlopsCA30.xml",
+      "3.0" => "#{SCHEMA_PATH}/qbxmlops30.xml",
+      "4.0" => "#{SCHEMA_PATH}/qbxmlops40.xml",
+      "4.1" => "#{SCHEMA_PATH}/qbxmlops41.xml",
+      "5.0" => "#{SCHEMA_PATH}/qbxmlops50.xml",
+      "6.0" => "#{SCHEMA_PATH}/qbxmlops60.xml",
+      "7.0" => "#{SCHEMA_PATH}/qbxmlops70.xml",
+      "8.0" => "#{SCHEMA_PATH}/qbxmlops80.xml",
+      "10.0" => "#{SCHEMA_PATH}/qbxmlops100.xml",
+      "11.0" => "#{SCHEMA_PATH}/qbxmlops110.xml",
+      "12.0" => "#{SCHEMA_PATH}/qbxmlops120.xml",
+      "13.0" => "#{SCHEMA_PATH}/qbxmlops130.xml"
+    },
+    qbpos: {
+      "3.0" => "#{SCHEMA_PATH}/qbposxmlops30.xml"
+    }
   }.freeze
 
   HIDE_IVARS = [:@doc].freeze
 
-  def initialize(key = :qb)
-    @schema = key
-    @doc    = parse_schema(key)
+  def initialize(key = :qb, version = "7.0")
+    @schema  = key
+    @version = version
+    @doc     = parse_schema(key, version)
   end
 
   # returns all xml nodes matching a specified pattern
@@ -38,7 +55,7 @@ class Qbxml
     hash = namespace_qbxml_hash(hash) unless opts[:no_namespace] 
     validate_qbxml_hash(hash) if opts[:validate]
 
-    Qbxml::Hash.to_xml(hash, xml_directive: XML_DIRECTIVES[@schema])
+    Qbxml::Hash.to_xml(hash, schema: XML_DIRECTIVES[@schema], version: @version)
   end
 
   # converts qbxml to a hash
@@ -64,12 +81,14 @@ class Qbxml
 
 # private
 
-  def parse_schema(key)
-    File.open(select_schema(key)) { |f| Nokogiri::XML(f) }
+  def parse_schema(key, version)
+    File.open(select_schema(key, version)) { |f| Nokogiri::XML(f) }
   end
 
-  def select_schema(schema_key)
-    SCHEMAS[schema_key] || raise("invalid schema, must be one of #{SCHEMA.keys.inspect}")
+  def select_schema(schema_key, version)
+    raise "invalid schema '#{schema_key}', must be one of #{SCHEMAS.keys.inspect}" if !SCHEMAS.has_key?(schema_key)
+    raise "invalid version '#{version}' for schema #{schema_key}, must be one of #{SCHEMAS[schema_key].keys.inspect}" if !SCHEMAS[schema_key].has_key?(version)
+    return SCHEMAS[schema_key][version]
   end
 
 # hash to qbxml

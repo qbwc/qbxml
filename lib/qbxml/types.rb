@@ -1,8 +1,8 @@
 module Qbxml::Types
 
   XML_DIRECTIVES = {
-    :qb => [:qbxml, { version: '7.0' }],
-    :qbpos => [:qbposxml, { version: '3.0' }]
+    :qb => :qbxml,
+    :qbpos => :qbposxml
   }.freeze
 
   FLOAT_CAST = Proc.new {|d| d ? Float(d) : 0.0}
