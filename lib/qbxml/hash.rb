@@ -75,6 +75,7 @@ private
     node_hash = {CONTENT_ROOT => '', ATTR_ROOT => {}}
     name = node.name
     schema = opts[:schema]
+    opts[:typecast_cache] ||= {}
 
     # Insert node hash into parent hash correctly.
     case hash[name]
@@ -105,7 +106,7 @@ private
       node_hash.delete(ATTR_ROOT)
       hash[name] = \
         if schema
-          typecast(schema, node.path, node_hash[CONTENT_ROOT])
+          typecast(schema, node.path, node_hash[CONTENT_ROOT], opts[:typecast_cache])
         else
           node_hash[CONTENT_ROOT]
         end
@@ -119,9 +120,10 @@ private
 
 private
 
-  def self.typecast(schema, xpath, value)
+  def self.typecast(schema, xpath, value, typecast_cache)
     type_path = xpath.gsub(/\[\d+\]/,'')
-    type_proc = Qbxml::TYPE_MAP[schema.xpath(type_path).first.try(:text)]
+    # This is fairly expensive. Cache it for better performance when parsing lots of records of the same type.
+    type_proc = typecast_cache[type_path] ||= Qbxml::TYPE_MAP[schema.xpath(type_path).first.try(:text)]
     raise "#{xpath} is not a valid type" unless type_proc
     type_proc[value]
   end
