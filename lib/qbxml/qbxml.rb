@@ -86,6 +86,8 @@ class Qbxml
   end
 
   def select_schema(schema_key, version)
+    # Try to handle it if a user gave us a numeric version. Assume 1 decimal.
+    version = '%.1f' % version if version.is_a?(Numeric)
     raise "invalid schema '#{schema_key}', must be one of #{SCHEMAS.keys.inspect}" if !SCHEMAS.has_key?(schema_key)
     raise "invalid version '#{version}' for schema #{schema_key}, must be one of #{SCHEMAS[schema_key].keys.inspect}" if !SCHEMAS[schema_key].has_key?(version)
     return SCHEMAS[schema_key][version]
