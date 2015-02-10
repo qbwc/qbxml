@@ -30,11 +30,11 @@ module Qbxml::Types
     "TIMEINTERVALTYPE" => STR_CAST
   }
 
+  # Strings in tag names that should be capitalized in QB's XML
   ACRONYMS = ['AP', 'AR', 'COGS', 'COM', 'UOM', 'QBXML', 'UI', 'AVS', 'ID',
               'PIN', 'SSN', 'COM', 'CLSID', 'FOB', 'EIN', 'UOM', 'PO', 'PIN', 'QB']
 
-  ActiveSupport::Inflector.inflections do |inflect|
-    ACRONYMS.each { |a| inflect.acronym a }
-  end
+  # Based on the regexp in ActiveSupport::Inflector.camelize
+  ACRONYM_REGEXP = Regexp.new("(?:(^|[a-z]|\\/))(#{ACRONYMS.map{|a| a.capitalize}.join("|")})")
 
 end

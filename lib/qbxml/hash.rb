@@ -15,7 +15,11 @@ class Qbxml::Hash < ::Hash
   def self.from_hash(hash, opts = {}, &block)
     key_proc = \
       if opts[:camelize]
-        lambda { |k| k.camelize } 
+        lambda { |k|
+          # QB wants things like ListID, not ListId. Adding inflections then using camelize can accomplish
+          # the same thing, but then the inflections will apply to everything the user does everywhere.
+          k.camelize.gsub(Qbxml::Types::ACRONYM_REGEXP) { "#{$1}#{$2.upcase}" }
+        }
       elsif opts[:underscore]
         lambda { |k| k.underscore } 
       end
