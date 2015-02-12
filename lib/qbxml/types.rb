@@ -35,6 +35,9 @@ module Qbxml::Types
               'PIN', 'SSN', 'COM', 'CLSID', 'FOB', 'EIN', 'UOM', 'PO', 'PIN', 'QB']
 
   # Based on the regexp in ActiveSupport::Inflector.camelize
-  ACRONYM_REGEXP = Regexp.new("(?:(^|[a-z]|\\/))(#{ACRONYMS.map{|a| a.capitalize}.join("|")})")
+  # Substring 1: Start of string, lower case letter, or slash
+  # Substring 2: One of the acronyms above, In Capitalized Casing
+  # Substring 3: End of string or capital letter
+  ACRONYM_REGEXP = Regexp.new("(?:(^|[a-z]|\\/))(#{ACRONYMS.map{|a| a.capitalize}.join("|")})([A-Z]|$)")
 
 end

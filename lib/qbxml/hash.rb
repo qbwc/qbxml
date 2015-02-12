@@ -18,7 +18,7 @@ class Qbxml::Hash < ::Hash
         lambda { |k|
           # QB wants things like ListID, not ListId. Adding inflections then using camelize can accomplish
           # the same thing, but then the inflections will apply to everything the user does everywhere.
-          k.camelize.gsub(Qbxml::Types::ACRONYM_REGEXP) { "#{$1}#{$2.upcase}" }
+          k.camelize.gsub(Qbxml::Types::ACRONYM_REGEXP) { "#{$1}#{$2.upcase}#{$3}" }
         }
       elsif opts[:underscore]
         lambda { |k| k.underscore } 
