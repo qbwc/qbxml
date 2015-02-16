@@ -87,9 +87,12 @@ private
 
     # Insert node hash into parent hash correctly.
     case hash[name]
-    when Array then hash[name] << node_hash
-    when Hash  then hash[name] = [hash[name], node_hash]
-    else hash[name] = node_hash
+      when Array
+        hash[name] << node_hash
+      when Hash, String
+        hash[name] = [hash[name], node_hash]
+      else
+        hash[name] = node_hash
     end
 
     # Handle child elements
@@ -112,12 +115,14 @@ private
       node_hash.delete(CONTENT_ROOT)
     elsif node_hash[CONTENT_ROOT].present?
       node_hash.delete(ATTR_ROOT)
-      hash[name] = \
-        if schema
-          typecast(schema, node.path, node_hash[CONTENT_ROOT], opts[:typecast_cache])
-        else
-          node_hash[CONTENT_ROOT]
-        end
+      v = schema ? typecast(schema, node.path, node_hash[CONTENT_ROOT], opts[:typecast_cache]) : node_hash[CONTENT_ROOT]
+      # We only updated the last element
+      if hash[name].is_a?(Array)
+        hash[name].pop
+        hash[name] << v
+      else
+        hash[name] = v
+      end
     else
       hash[name] = node_hash[CONTENT_ROOT]
     end
