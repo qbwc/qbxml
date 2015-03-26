@@ -5,12 +5,13 @@ class HashToXmlTest < Minitest::Test
 
   def test_hash_to_xml_customer_query
     qbxml = Qbxml.new
-    assert_equal "<?qbxml version=\"7.0\"?>\n<QBXML>\n  <QBXMLMsgsRq>\n    <CustomerQueryRq>\n      <ListID>GUID-GOES-HERE</ListID>\n    </CustomerQueryRq>\n  </QBXMLMsgsRq>\n</QBXML>\n", qbxml.to_qbxml({:qbxml => {:qbxml_msgs_rq => {:customer_query_rq => {:list_id => 'GUID-GOES-HERE'}}}})
+    assert_equal "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<?qbxml version=\"7.0\"?>\n<QBXML>\n  <QBXMLMsgsRq>\n    <CustomerQueryRq>\n      <ListID>GUID-GOES-HERE</ListID>\n    </CustomerQueryRq>\n  </QBXMLMsgsRq>\n</QBXML>\n", qbxml.to_qbxml({:qbxml => {:qbxml_msgs_rq => {:customer_query_rq => {:list_id => 'GUID-GOES-HERE'}}}})
   end
 
   def test_hash_to_xml_invoice_mod
     qbxml = Qbxml.new
     xml = <<-EOF
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <?qbxml version="7.0"?>
 <QBXML>
   <QBXMLMsgsRq>
@@ -47,6 +48,7 @@ class HashToXmlTest < Minitest::Test
   def test_hash_to_xml_customer_add
     qbxml = Qbxml.new
     xml = <<-EOF
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <?qbxml version="7.0"?>
 <QBXML>
   <QBXMLMsgsRq>

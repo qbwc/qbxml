@@ -55,6 +55,7 @@ private
     builder = opts[:builder]
     
     unless opts.delete(:skip_instruct)
+      builder.instruct!(:xml, :encoding => "ISO-8859-1")
       builder.instruct!(opts[:schema], version: opts[:version])
     end
 
