@@ -73,18 +73,7 @@ q.to_qbxml(hsh, validate: true)
 
 ## Caveats
 
-Correct case conversion depends on the following ActiveSupport inflection
-settings. Correct behaviour cannot be guaranteed if any of the following
-inflections are modified.
-
-```ruby
-ACRONYMS = ['AP', 'AR', 'COGS', 'COM', 'UOM', 'QBXML', 'UI', 'AVS', 'ID',
-            'PIN', 'SSN', 'COM', 'CLSID', 'FOB', 'EIN', 'UOM', 'PO', 'PIN', 'QB']
-
-ActiveSupport::Inflector.inflections do |inflect|
-  ACRONYMS.each { |a| inflect.acronym a }
-end
-```
+QuickBooks only supports [ISO-8859-1](http://en.wikipedia.org/wiki/ISO/IEC_8859-1) characters. Any characters outside of ISO-8859-1 will become question marks in QuickBooks.
 
 ## Contributing
 
