@@ -1,5 +1,7 @@
 # Qbxml
 
+[![Build Status](https://travis-ci.org/qbwc/qbxml.svg?branch=master)](https://travis-ci.org/qbwc/qbxml)
+
 Qbxml is a QBXML parser and validation tool.
 
 ## Installation
@@ -20,11 +22,11 @@ Or install it yourself as:
 
 ### Initialization
 
-The parser can be initialized to either Quickbooks (:qb) or Quickbooks Point of
-Sale (:qbpos)
+The QBXML supported depends on whether you use QuickBooks (`:qb`) or
+QuickBooks Point of Sale (`:qbpos`) and on the version of QuickBooks used.
 
 ```ruby
-q = Qbxml.new(:qb)
+q = Qbxml.new(:qb, '7.0')
 ```
 
 ### API Introspection
