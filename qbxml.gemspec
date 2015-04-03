@@ -6,8 +6,8 @@ require 'qbxml/version'
 Gem::Specification.new do |gem|
   gem.name          = "qbxml"
   gem.version       = Qbxml::VERSION
-  gem.authors       = ["Alex Skryl"]
-  gem.email         = ["rut216@gmail.com"]
+  gem.authors       = ["Alex Skryl", "Jason Barnabe"]
+  gem.email         = ["rut216@gmail.com", "jason.barnabe@gmail.com"]
   gem.description   = %q{Quickbooks XML Parser}
   gem.summary       = %q{Quickbooks XML Parser and Validation Tool}
   gem.homepage      = ""
