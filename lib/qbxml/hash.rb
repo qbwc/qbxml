@@ -85,15 +85,23 @@ private
     name = node.name
     schema = opts[:schema]
     opts[:typecast_cache] ||= {}
+    opts[:is_repetitive_cache] ||= {}
 
     # Insert node hash into parent hash correctly.
     case hash[name]
       when Array
         hash[name] << node_hash
       when Hash, String
+        # This parent has multiple nodes with the same name, but when we checked the first time,
+        # we found it is not defined as repetitive. I guess this means the schema is a liar.
         hash[name] = [hash[name], node_hash]
       else
-        hash[name] = node_hash
+        # We didn't see this node name under this parent yet.
+        if is_repetitive?(schema, node.path, opts[:is_repetitive_cache])
+          hash[name] = [node_hash]
+        else
+          hash[name] = node_hash
+        end
     end
 
     # Handle child elements
@@ -140,6 +148,21 @@ private
     type_proc = typecast_cache[type_path] ||= Qbxml::TYPE_MAP[schema.xpath(type_path).first.try(:text)]
     raise "#{xpath} is not a valid type" unless type_proc
     type_proc[value]
+  end
+
+  # Determines if the node is repetitive. Just because something is repetitive doesn't mean it always repeats.
+  # For example, a customer query could return 1 result or 100, but in both cases, we should be returning an
+  # Array.
+  def self.is_repetitive?(schema, xpath, is_repetitive_cache)
+    # Yes, we are parsing comments.
+    comment_path = xpath.gsub(/\[\d+\]/,'') + "/comment()"
+    return is_repetitive_cache[comment_path] || parse_repetitive_from_comment(schema, comment_path)
+  end
+
+  def self.parse_repetitive_from_comment(schema, comment_path)
+    comment = schema.xpath(comment_path).first
+    return false if comment.nil?
+    return comment.text.include?('may rep')
   end
 
   def self.deep_convert(hash, opts = {}, &block)
