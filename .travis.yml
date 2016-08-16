@@ -7,9 +7,9 @@ rvm:
   - 2.3.1
 
 gem_files:
-  - gemfile: gmefiles/rails_5.0.gemfile
-  - gemfile: gmefiles/rails_4.2.gemfile
-  - gemfile: gmefiles/rails_4.1.gemfile
+  - gemfile: gemfiles/rails_5.0.gemfile
+  - gemfile: gemfiles/rails_4.2.gemfile
+  - gemfile: gemfiles/rails_4.1.gemfile
 
 matrix:
   exclude:
