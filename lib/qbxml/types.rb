@@ -5,7 +5,7 @@ module Qbxml::Types
     :qbpos => :qbposxml
   }.freeze
 
-  FLOAT_CAST = Proc.new {|d| d ? Float(d) : 0.0}
+  FLOAT_CAST = Proc.new {|d| d ? d.to_f : 0.0}
   BOOL_CAST  = Proc.new {|d| d ? (d.to_s.downcase == 'true' ? true : false) : false }
   DATE_CAST  = Proc.new {|d| d ? Date.parse(d).strftime("%Y-%m-%d") : Date.today.strftime("%Y-%m-%d") }
   TIME_CAST  = Proc.new {|d| d ? Time.parse(d).xmlschema : Time.now.xmlschema }
