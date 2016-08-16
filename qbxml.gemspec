@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency('activesupport', '>= 3.2.9')
+  gem.add_dependency('activesupport', '>= 4.1.0')
   gem.add_dependency('nokogiri', '~> 1.5')
   gem.add_dependency('builder', '~> 3.0')
 
@@ -26,4 +26,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('rspec')
   gem.add_development_dependency('simplecov')
   gem.add_development_dependency('rake')
+  gem.add_development_dependency('appraisal')
 end
