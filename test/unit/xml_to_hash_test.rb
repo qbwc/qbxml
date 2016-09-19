@@ -46,8 +46,8 @@ class XmlToHashTest < Minitest::Test
             "item_service_ret" => {
               "xml_attributes" => {},
               "list_id" => "80000005-1468535148",
-              "time_created" => "2016-07-14T15:25:48-08:00",
-              "time_modified" => "2016-07-14T15:25:48-08:00",
+              "time_created" => "2016-07-14T15:25:48+00:00",
+              "time_modified" => "2016-07-14T15:25:48+00:00",
               "edit_sequence" => "1468535148",
               "name" => "let's get intuit",
               "full_name" => "let's get intuit",
@@ -79,8 +79,8 @@ class XmlToHashTest < Minitest::Test
                        iteratorID="{10c05cbd-b25b-4a85-8aa0-8bce89e6e900}">
             <ItemServiceRet>
               <ListID>80000005-1468535148</ListID>
-              <TimeCreated>2016-07-14T15:25:48-08:00</TimeCreated>
-              <TimeModified>2016-07-14T15:25:48-08:00</TimeModified>
+              <TimeCreated>2016-07-14T15:25:48+00:00</TimeCreated>
+              <TimeModified>2016-07-14T15:25:48+00:00</TimeModified>
               <EditSequence>1468535148</EditSequence>
               <Name>let's get intuit</Name>
               <FullName>let's get intuit</FullName>
