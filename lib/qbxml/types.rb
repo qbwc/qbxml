@@ -11,7 +11,12 @@ module Qbxml::Types
   TIME_CAST  = Proc.new {|d| d ? Time.parse(d).xmlschema : Time.now.xmlschema }
   INT_CAST   = Proc.new {|d| d ? Integer(d.to_i) : 0 }
   STR_CAST   = Proc.new {|d| d ? String(d) : ''}
-  BIGDECIMAL_CAST   = Proc.new {|d| d ? BigDecimal.new(d) : 0.0}
+
+  if Gem::Version.new(RUBY_VERSION.dup) <= Gem::Version.new('2.1')
+    BIGDECIMAL_CAST = Proc.new {|d| d ? BigDecimal(d).to_f : 0.0}
+  else
+    BIGDECIMAL_CAST = Proc.new {|d| d ? BigDecimal(d) : 0.0}
+  end
 
   TYPE_MAP= {
     "AMTTYPE"          => FLOAT_CAST,
