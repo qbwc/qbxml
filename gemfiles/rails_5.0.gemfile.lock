@@ -67,7 +67,6 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 5.0.0)
   appraisal
-  bundler (= 2.1.4)
   pry
   pry-nav
   qbxml!

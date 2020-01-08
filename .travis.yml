@@ -39,3 +39,4 @@ matrix:
 
 before_install:
   - if ruby --version | cut -d ' ' -f 2 | grep -q 2.1.5p273 ; then gem update --system 2.4.8; fi
+  - gem install bundler
