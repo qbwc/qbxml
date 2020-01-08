@@ -2,7 +2,7 @@ PATH
   remote: ..
   specs:
     qbxml (0.4.0)
-      activesupport (>= 4.1.0)
+      activesupport (>= 5.0.0)
       builder (~> 3.0)
       nokogiri (~> 1.5)
 
