@@ -7,6 +7,7 @@ rvm:
   - 2.4.8
   - 2.5.7
   - 2.6.5
+  - 2.7.0
 
 gemfile:
   - gemfiles/rails_5.0.gemfile
@@ -28,6 +29,10 @@ matrix:
     - rvm: 2.6.5
       gemfile: gemfiles/rails_4.1.gemfile
     - rvm: 2.6.5
+      gemfile: gemfiles/rails_4.2.gemfile
+    - rvm: 2.7.0
+      gemfile: gemfiles/rails_4.1.gemfile
+    - rvm: 2.7.0
       gemfile: gemfiles/rails_4.2.gemfile
 
 before_install:
