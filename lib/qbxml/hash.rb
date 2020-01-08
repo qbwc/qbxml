@@ -28,7 +28,7 @@ class Qbxml::Hash < ::Hash
   end
 
   def to_xml(opts = {})
-    hash = self.class.to_xml(self, opts)
+    self.class.to_xml(self, opts)
   end
 
   def self.to_xml(hash, opts = {})
