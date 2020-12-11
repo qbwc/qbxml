@@ -17,7 +17,8 @@ class Qbxml
       "10.0" => "#{SCHEMA_PATH}/qbxmlops100.xml",
       "11.0" => "#{SCHEMA_PATH}/qbxmlops110.xml",
       "12.0" => "#{SCHEMA_PATH}/qbxmlops120.xml",
-      "13.0" => "#{SCHEMA_PATH}/qbxmlops130.xml"
+      "13.0" => "#{SCHEMA_PATH}/qbxmlops130.xml",
+      "14.0" => "#{SCHEMA_PATH}/qbxmlops140.xml"
     },
     qbpos: {
       "3.0" => "#{SCHEMA_PATH}/qbposxmlops30.xml"
