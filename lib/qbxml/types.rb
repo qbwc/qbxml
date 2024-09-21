@@ -11,10 +11,10 @@ module Qbxml::Types
   TIME_CAST  = Proc.new {|d| d ? Time.parse(d).xmlschema : Time.now.xmlschema }
   INT_CAST   = Proc.new {|d| d ? Integer(d.to_i) : 0 }
   STR_CAST   = Proc.new {|d| d ? String(d) : ''}
-  BIGDECIMAL_CAST = Proc.new {|d| d ? BigDecimal(d) : 0.0}
+  #BIGDECIMAL_CAST = Proc.new {|d| d ? String(d) : 0.0}
 
   TYPE_MAP= {
-    "AMTTYPE"          => FLOAT_CAST,
+    "AMTTYPE"          => STR_CAST,
     "BOOLTYPE"         => BOOL_CAST,
     "DATETIMETYPE"     => TIME_CAST,
     "DATETYPE"         => DATE_CAST,
@@ -24,8 +24,8 @@ module Qbxml::Types
     "IDTYPE"           => STR_CAST,
     "INTTYPE"          => INT_CAST,
     "PERCENTTYPE"      => FLOAT_CAST,
-    "PRICETYPE"        => FLOAT_CAST,
-    "QUANTYPE"         => BIGDECIMAL_CAST,
+    "PRICETYPE"        => STR_CAST,
+    "QUANTYPE"         => INT_CAST,
     "STRTYPE"          => STR_CAST,
     "TIMEINTERVALTYPE" => STR_CAST
   }

@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency('activesupport', '>= 5.0.0')
-  gem.add_dependency('nokogiri', '~> 1.5')
+  gem.add_dependency('nokogiri', '>= 1.5.0', '< 2.0')
   gem.add_dependency('builder', '~> 3.0')
 
   gem.add_development_dependency('pry')
