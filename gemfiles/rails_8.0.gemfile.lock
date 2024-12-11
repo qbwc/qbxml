@@ -1,5 +1,5 @@
 PATH
-  remote: .
+  remote: ..
   specs:
     qbxml (0.4.0)
       activesupport (>= 5.0.0)
@@ -87,6 +87,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activesupport (~> 8.0.0.1)
   appraisal
   pry
   pry-nav
