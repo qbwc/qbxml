@@ -1,8 +1,4 @@
-# Qbxml
-
-[![Build Status](https://travis-ci.org/qbwc/qbxml.svg?branch=master)](https://travis-ci.org/qbwc/qbxml)
-
-Qbxml is a QBXML parser and validation tool.
+qbxml is a QBXML parser and validation tool. QBXML is used when integrating with QuickBooks Desktop. If you use QuickBooks Online, look elsewhere.
 
 ## Installation
 
