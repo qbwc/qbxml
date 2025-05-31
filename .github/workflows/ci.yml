@@ -44,9 +44,9 @@ jobs:
           - ruby-version: 3.1
             rails-version: 5.2
           - ruby-version: 3.1
-            rails-version: 7.1
+            rails-version: 6.0
           - ruby-version: 3.1
-            rails-version: 7.2
+            rails-version: 6.1
           - ruby-version: 3.2
             rails-version: 5.0
           - ruby-version: 3.2
