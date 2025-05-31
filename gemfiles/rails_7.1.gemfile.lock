@@ -3,6 +3,7 @@ PATH
   specs:
     qbxml (0.5.0)
       activesupport (>= 5.0.0)
+      bigdecimal
       builder (~> 3.0)
       nokogiri (~> 1.5)
 
