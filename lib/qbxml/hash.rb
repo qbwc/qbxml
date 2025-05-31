@@ -5,8 +5,6 @@
 #
 #
 
-require 'active_support/core_ext/object/blank.rb'
-
 class Qbxml::Hash < ::Hash
   include Qbxml::Types
 
