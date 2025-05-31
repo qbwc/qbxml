@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 module Qbxml::Types
 
   XML_DIRECTIVES = {

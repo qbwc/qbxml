@@ -4,6 +4,9 @@
 # https://github.com/rails/rails/blob/master/activesupport/lib/active_support/xml_mini/nokogiri.rb
 #
 #
+
+require 'active_support/core_ext/object/blank.rb'
+
 class Qbxml::Hash < ::Hash
   include Qbxml::Types
 
