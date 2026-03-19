@@ -76,7 +76,7 @@ jobs:
             rails-version: 6.1
           - ruby-version: 4.0
             rails-version: 7.0
-            env:
+    env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/rails_${{ matrix.rails-version }}.gemfile
     steps:
       - uses: actions/checkout@v3
